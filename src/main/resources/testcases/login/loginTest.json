@@ -1,0 +1,98 @@
+[
+  {
+    "title": "正常登录测试",
+    "depend": {
+      "url": "/ssl/openapi_mic/register",
+      "method": "post",
+      "params": {
+        "country": "caiwen",
+        "countryName": "123456",
+        "email": "USA",
+        "memberId": "1.0",
+        "password": "1654654",
+        "gender": "1",
+        "companyName": "",
+        "companyRole": "",
+        "region": "",
+        "firstName": "",
+        "lastName": "",
+        "userId": "",
+        "userName": "",
+        "webSite": "",
+        "timeZone": "",
+        "registerSource": "",
+        "versionCode": ""
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "request": {
+      "params": {
+        "loginId": "${depend.request.param.memberId}",
+        "password": "${depend.request.param.password}",
+        "region": "${depend.request.param.region}",
+        "versionCode": "${depend.request.param.versionCode}"
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": {},
+      "cookies": {},
+      "body": {
+        "code": 10004,
+        "err": "Incorrect Member ID/Email or Password",
+        "content": {
+          "companyInfo": {
+            "annualTurnover": "<1 Million USD",
+            "businessRange": "Auto Parts & Accessories,Bags, Cases & Boxes,Chemicals,Electrical & Electronics,Furniture & Furnishing,Health & Medicine,Instruments & Meters,Textile,Toys",
+            "businessType": "Manufacturer,Service Provider,Trade Agent",
+            "city": "Test_City33",
+            "companyAddress": "2932 Harris Roadfda3ww2222",
+            "companyId": "653417275",
+            "companyIdentity": "1",
+            "companyName": "Test2323",
+            "companyStat": 2,
+            "country": "United Kingdom",
+            "countryKey": "United_Kingdom ",
+            "description": "We are a sourcing office of Dean&Kean Company in China. We would like to find suitable suppliers whom can provide us the computer product. <br/><br/><br/><br/><br/><br/><br/><br/><br/>1<br/><br/><br/><br/><br/><br/>fff<br/><br/><br/><br/><br/>test",
+            "employeeNumber": "501 ~ 1000",
+            "fax": "rr-43-963852741",
+            "homepage": "http://43434",
+            "isBeforePremium": "0",
+            "logo": "http://membercenter.made-in-china.com:88/image?tid=4&id=rMDERsWPHokK&cache=0&lan_code=0",
+            "memberLevel": "1",
+            "memberType": 32,
+            "productKeyword": "test, 323231, reswer, dsferw, led",
+            "province": "Lancashire11364",
+            "systemCertification": "",
+            "telephone": "44-120-434434",
+            "timeZone": "(GMT+05:00) Bombay, New Delhi",
+            "trademark": "test3232",
+            "zipCode": "027645434345"
+          },
+          "userInfo": {
+            "backEmail": "wangyong@made-in-china.com",
+            "department": "Buy Department",
+            "email": "23522t33@352.com",
+            "fullName": "Dean",
+            "gender": 0,
+            "isEmailConfirmed": false,
+            "mobile": "",
+            "operatorId": "00",
+            "position": "Manager32",
+            "unreadMail": 5,
+            "unreadQuotation": 2,
+            "userRole": "0"
+          },
+          "favoriteInfo": {
+            "prodFavoriteNum": "158",
+            "compFavoriteNum": "18",
+            "cataFavoriteNum": "25"
+          }
+        }
+      }
+    }
+  }
+]

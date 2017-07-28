@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+  <listeners>
+    <listener class-name="com.focustech.mic.test.api.listener.CustomTestListener"/>
+  </listeners>
+  <test name="core function">
+    <parameter name="baseURI" value="http://192.168.42.154:82"/>
+    <parameter name="charset" value="utf-8"/>
+    <parameter name="testcaseDir" value="/testcases"/>
+    <groups>
+      <run>
+        <include name="core"/>
+      </run>
+
+    </groups>
+    <classes>
+      <class name="com.focustech.mic.test.api.testcase.app.LoginTest"/>
+    </classes>
+  </test>
+
+
+</suite>

@@ -4,10 +4,28 @@ import java.util.HashMap;
 
 public class Request {
 
+  private String path;
+  private String method;
   private HashMap<String, String> params;
   private HashMap<String, String> headers;
   private HashMap<String, String> cookies;
   private String file;
+
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  public String getMethod() {
+    return method;
+  }
+
+  public void setMethod(String method) {
+    this.method = method;
+  }
 
   public HashMap<String, String> getParams() {
     return params;

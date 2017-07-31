@@ -7,7 +7,7 @@ public class Response {
   private Integer statusCode;
   private HashMap<String, Object> headers;
   private HashMap<String, Object> cookies;
-  private HashMap<String, String> body;
+  private HashMap<String, Object> body;
 
   public Integer getStatusCode() {
     return statusCode;
@@ -33,11 +33,11 @@ public class Response {
     this.cookies = cookies;
   }
 
-  public HashMap<String, String> getBody() {
+  public HashMap<String, Object> getBody() {
     return body;
   }
 
-  public void setBody(HashMap<String, String> body) {
+  public void setBody(HashMap<String, Object> body) {
     this.body = body;
   }
 }

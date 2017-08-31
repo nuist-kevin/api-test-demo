@@ -9,12 +9,14 @@ import com.focustech.mic.test.api.annotation.DataFile;
 import com.focustech.mic.test.api.domain.Request;
 import com.focustech.mic.test.api.domain.Response;
 import com.focustech.mic.test.api.domain.TestCase;
+import com.focustech.mic.test.api.utils.json.JsonUtil;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,57 +34,57 @@ public class CustomHooker implements IHookable {
     String filePath = testResult.getMethod().getConstructorOrMethod().getMethod()
         .getDeclaredAnnotation(DataFile.class).value();
     System.out.println(filePath);
-    InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream((filePath));
-    ObjectMapper mapper = new ObjectMapper();
-    JavaType javaType = mapper.getTypeFactory()
-        .constructParametricType(ArrayList.class, TestCase.class);
 
+    List<TestCase> testCaseList = new ArrayList<>();
     try {
-
-      List<TestCase> testCaseList = mapper.readValue(fileInputStream, javaType);
-
-      for (int i = 0; i < testCaseList.size(); i++) {
-        System.out
-            .println("============ testing " + testCaseList.get(i).getTitle() + " ==============");
-        Request request = testCaseList.get(i).getRequest();
-        Response response = testCaseList.get(i).getResponse();
-
-        RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
-        ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
-
-        RequestSpecification requestSpecification = requestSpecBuilder
-            .setContentType(
-                testResult.getTestContext().getCurrentXmlTest().getParameter("contentType"))
-            .setBasePath(request.getPath())
-            .addParams(request.getParams())
-            .addHeaders(request.getHeaders())
-            .addCookies(request.getCookies()).build();
-
-        ResponseSpecification responseSpecification =
-            bulidBodySpec(responseSpecBuilder, response.getBody(), "")
-                .expectStatusCode(response.getStatusCode())
-                .expectHeaders(response.getHeaders())
-                .expectCookies(response.getCookies())
-                .build();
-
-        given().filter((requestSpec, responseSpec, ctx) -> {
-          io.restassured.response.Response newResponse = new ResponseBuilder()
-              .clone(ctx.next(requestSpec, responseSpec)).setContentType(ContentType.JSON)
-              .build();
-          return newResponse;
-        }).spec(requestSpecification)
-            .when().log().all()
-            .post()
-            .then().log().all()
-            .spec(responseSpecification);
-      }
-    } catch (Exception e) {
+      testCaseList = JsonUtil.readObjectListFromJsonFile(filePath, TestCase.class);
+    } catch (IOException e) {
       e.printStackTrace();
-      Assert.fail();
+      Assert.fail("Json文件解析失败");
+    }
+
+    for (int i = 0; i < testCaseList.size(); i++) {
+      System.out
+          .println("============ testing " + testCaseList.get(i).getTitle() + " ==============");
+
+
+      Request request = testCaseList.get(i).getRequest();
+      Response response = testCaseList.get(i).getResponse();
+
+      RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
+      ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
+
+      RequestSpecification requestSpecification = requestSpecBuilder
+          .setContentType(
+              testResult.getTestContext().getCurrentXmlTest().getParameter("contentType"))
+          .setBasePath(request.getPath())
+          .addQueryParams(request.getParams())
+          .addHeaders(request.getHeaders())
+          .addCookies(request.getCookies()).build();
+
+      ResponseSpecification responseSpecification =
+          bulidBodySpec(responseSpecBuilder, response.getBody(), "")
+              .expectStatusCode(Integer.parseInt(response.getStatusCode()))
+              .expectHeaders(response.getHeaders())
+              .expectCookies(response.getCookies())
+              .build();
+
+      given().filter((requestSpec, responseSpec, ctx) -> {
+        io.restassured.response.Response newResponse = new ResponseBuilder()
+            .clone(ctx.next(requestSpec, responseSpec)).setContentType(ContentType.JSON)
+            .build();
+        return newResponse;
+      }).spec(requestSpecification).
+
+      when().log().all()
+          .post().
+      then().log().all()
+          .spec(responseSpecification);
     }
     callBack.runTestMethod(testResult);
     System.out.println("---------- leave hooker ----------");
   }
+
 
   private ResponseSpecBuilder bulidBodySpec(ResponseSpecBuilder responseSpecBuilder,
       Map<String, Object> body, String startPath) {
@@ -92,8 +94,7 @@ public class CustomHooker implements IHookable {
         if (!"".equals(startPath)) {
           currentPath = startPath + "." + entry.getKey();
         }
-        responseSpecBuilder
-            .expectBody(currentPath, equalTo(entry.getValue()));
+        responseSpecBuilder.expectBody(currentPath, equalTo(entry.getValue()));
       } else {
         bulidBodySpec(responseSpecBuilder, (Map<String, Object>) entry.getValue(), entry.getKey());
       }

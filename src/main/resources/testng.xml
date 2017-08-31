@@ -14,11 +14,10 @@
       <run>
         <include name="core"/>
       </run>
-
     </groups>
-    <classes>
-      <class name="com.focustech.mic.test.api.testcase.app.LoginTest"/>
-    </classes>
+    <packages>
+      <package name="com.focustech.mic.test.api.testcase.app"/>
+    </packages>
   </test>
 
 

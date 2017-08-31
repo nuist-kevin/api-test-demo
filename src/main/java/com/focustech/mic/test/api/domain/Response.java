@@ -1,43 +1,43 @@
 package com.focustech.mic.test.api.domain;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Response {
 
-  private Integer statusCode;
-  private HashMap<String, Object> headers;
-  private HashMap<String, Object> cookies;
-  private HashMap<String, Object> body;
+  private String statusCode;
+  private Map<String, Object> headers;
+  private Map<String, Object> cookies;
+  private Map<String, Object> body;
 
-  public Integer getStatusCode() {
+  public String getStatusCode() {
     return statusCode;
   }
 
-  public void setStatusCode(Integer statusCode) {
+  public void setStatusCode(String statusCode) {
     this.statusCode = statusCode;
   }
 
-  public HashMap<String, Object> getHeaders() {
+  public Map<String, Object> getHeaders() {
     return headers;
   }
 
-  public void setHeaders(HashMap<String, Object> headers) {
+  public void setHeaders(Map<String, Object> headers) {
     this.headers = headers;
   }
 
-  public HashMap<String, Object> getCookies() {
+  public Map<String, Object> getCookies() {
     return cookies;
   }
 
-  public void setCookies(HashMap<String, Object> cookies) {
+  public void setCookies(Map<String, Object> cookies) {
     this.cookies = cookies;
   }
 
-  public HashMap<String, Object> getBody() {
+  public Map<String, Object> getBody() {
     return body;
   }
 
-  public void setBody(HashMap<String, Object> body) {
+  public void setBody(Map<String, Object> body) {
     this.body = body;
   }
 }

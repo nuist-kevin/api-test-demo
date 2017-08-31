@@ -1,0 +1,44 @@
+[
+  {
+    "title": "获取登录用户的信息",
+    "depend": {
+      "request": {
+        "path": "/ssl/mic/login",
+        "method": "post",
+        "params": {
+          "loginId": "lhpb",
+          "password": "focus1234",
+          "region": "MIC for Supplier Android",
+          "versionCode": ""
+        },
+        "headers": {},
+        "cookies": {}
+      }
+    },
+    "request": {
+      "path": "/ssl/openapi_mic/profile",
+      "method": "post",
+      "params": {
+        "sessionId": "${depend.response.cookies[JSESSIONID]}",
+        "companyId": "${depend.response.body.content.companyInfo.companyId}",
+        "operatorId": "${depend.response.body.content.userInfo.operatorId}",
+        "mailId": "",
+        "mailType":"",
+        "versionCode":"${depend.request.params.versionCode}"
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": {},
+      "cookies": {},
+      "body": {
+        "code": 0,
+        "content": "${depend.response.body.content}",
+        "err": "",
+        "sessionid":"${depend.response.cookies[JSESSIONID]}"
+      }
+    }
+  }
+]

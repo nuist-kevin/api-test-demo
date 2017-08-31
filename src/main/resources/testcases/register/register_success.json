@@ -1,0 +1,35 @@
+[
+  {
+    "title": "正常注册",
+    "request": {
+      "path": "/ssl/openapi_mic/register",
+      "method": "post",
+      "params": {
+        "country": 332,
+        "countryName": "America",
+        "email": "nuist_kevin0801@163.com",
+        "memberId": "nuist_kevin0801",
+        "password" : "123456",
+        "gender" : 0,
+        "companyName":"mic test",
+        "companyRole": "tester",
+        "region": "MIC for Supplier Android",
+        "firstName": "Wen",
+        "lastName": "Cai",
+        "registerSource": 0
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": {},
+      "cookies": {},
+      "body": {
+        "code": 10004,
+        "content": "",
+        "err": "Incorrect Member ID/Email or Password"
+      }
+    }
+  }
+]

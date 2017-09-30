@@ -2,10 +2,6 @@ package com.focustech.mic.test.api.testcase.app;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class Demo {

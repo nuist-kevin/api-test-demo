@@ -1,6 +1,9 @@
 package com.focustech.mic.test.api.testcase.app;
 
-import com.focustech.mic.test.api.annotation.DataFile;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.focustech.mic.test.api.annotation.TestFile;
 import io.restassured.RestAssured;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
@@ -19,12 +22,12 @@ public class ProfileTest {
         post()
         .getSessionId();
     context.setAttribute("sessionId", sessionId);
-
   }
 
   @Test(groups = {"core"})
-  @DataFile("/testcases/profile/get_success.json")
-  public void get_success() {
 
+  @TestFile("/testcases/profile/get_success.json")
+  public void get_success() {
+    assertThat(5).isEqualTo(5);
   }
 }

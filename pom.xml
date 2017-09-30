@@ -14,10 +14,93 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <testng.version>6.11</testng.version>
     <rest-assured.version>3.0.3</rest-assured.version>
     <jackson.version>2.7.0</jackson.version>
+    <ognl.version>3.2.3</ognl.version>
+    <spring.version>4.3.10.RELEASE</spring.version>
+    <commons-beanutils.version>1.9.3</commons-beanutils.version>
+    <commons-pool2.version>2.4.2</commons-pool2.version>
+    <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+    <commons-io.version>2.5</commons-io.version>
+    <dbunit.version>2.5.4</dbunit.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <log4j2.version>2.9.1</log4j2.version>
+    <unitils.version>3.4.2</unitils.version>
   </properties>
-
   <dependencyManagement>
+
     <dependencies>
+      <dependency>
+        <groupId>org.unitils</groupId>
+        <artifactId>unitils-dbunit</artifactId>
+        <version>${unitils.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.unitils</groupId>
+        <artifactId>unitils-database</artifactId>
+        <version>${unitils.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+        <version>${commons-pool2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-dbcp2</artifactId>
+        <version>${commons-dbcp2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>${commons-beanutils.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit</artifactId>
+        <version>${dbunit.version}</version>
+      </dependency>
       <dependency>
         <groupId>io.rest-assured</groupId>
         <artifactId>rest-assured</artifactId>
@@ -28,16 +111,89 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <artifactId>testng</artifactId>
         <version>${testng.version}</version>
       </dependency>
+
       <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.version}</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
       </dependency>
     </dependencies>
-
   </dependencyManagement>
 
   <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+<!--    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.8.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.1.0.7.0</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.unitils</groupId>
+      <artifactId>unitils-dbunit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.unitils</groupId>
+      <artifactId>unitils-database</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
@@ -46,9 +202,14 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
     </dependency>
   </dependencies>
 

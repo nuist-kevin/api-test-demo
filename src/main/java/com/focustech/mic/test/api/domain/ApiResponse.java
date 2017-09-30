@@ -2,7 +2,7 @@ package com.focustech.mic.test.api.domain;
 
 import java.util.Map;
 
-public class Response {
+public class ApiResponse {
 
   private String statusCode;
   private Map<String, Object> headers;

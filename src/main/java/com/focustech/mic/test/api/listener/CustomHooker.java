@@ -3,53 +3,53 @@ package com.focustech.mic.test.api.listener;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.focustech.mic.test.api.annotation.DataFile;
-import com.focustech.mic.test.api.domain.Request;
-import com.focustech.mic.test.api.domain.Response;
+import com.focustech.mic.test.api.annotation.TestFile;
+import com.focustech.mic.test.api.domain.ApiRequest;
+import com.focustech.mic.test.api.domain.ApiResponse;
 import com.focustech.mic.test.api.domain.TestCase;
 import com.focustech.mic.test.api.utils.json.JsonUtil;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.testng.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
 
 public class CustomHooker implements IHookable {
 
+  private final static Logger logger = LoggerFactory.getLogger(CustomHooker.class);
   @Override
   public void run(IHookCallBack callBack, ITestResult testResult) {
-    System.out.println("---------- hooker ----------");
-    String filePath = testResult.getMethod().getConstructorOrMethod().getMethod()
-        .getDeclaredAnnotation(DataFile.class).value();
-    System.out.println(filePath);
+    logger.debug(" running method hooker for test method {}", testResult.getMethod().getMethodName());
 
-    List<TestCase> testCaseList = new ArrayList<>();
+    String filePath = testResult.getMethod().getConstructorOrMethod().getMethod()
+        .getDeclaredAnnotation(TestFile.class).value();
+
+    logger.debug("Handling testcase file {}.", filePath);
+
+    List<TestCase> testCaseList;
     try {
       testCaseList = JsonUtil.readObjectListFromJsonFile(filePath, TestCase.class);
     } catch (IOException e) {
       e.printStackTrace();
-      Assert.fail("Json文件解析失败");
+      throw new AssertionError("Json文件解析失败");
     }
 
     for (int i = 0; i < testCaseList.size(); i++) {
-      System.out
-          .println("============ testing " + testCaseList.get(i).getTitle() + " ==============");
 
+      logger.debug("Start running testcase {}", testCaseList.get(i).getTitle());
 
-      Request request = testCaseList.get(i).getRequest();
-      Response response = testCaseList.get(i).getResponse();
+      ApiRequest apiRequest = testCaseList.get(i).getApiRequest();
+      ApiResponse apiResponse = testCaseList.get(i).getApiResponse();
 
       RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
       ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
@@ -57,32 +57,32 @@ public class CustomHooker implements IHookable {
       RequestSpecification requestSpecification = requestSpecBuilder
           .setContentType(
               testResult.getTestContext().getCurrentXmlTest().getParameter("contentType"))
-          .setBasePath(request.getPath())
-          .addQueryParams(request.getParams())
-          .addHeaders(request.getHeaders())
-          .addCookies(request.getCookies()).build();
+          .setBasePath(apiRequest.getPath())
+          .addQueryParams(apiRequest.getParams())
+          .addHeaders(apiRequest.getHeaders())
+          .addCookies(apiRequest.getCookies()).build();
 
       ResponseSpecification responseSpecification =
-          bulidBodySpec(responseSpecBuilder, response.getBody(), "")
-              .expectStatusCode(Integer.parseInt(response.getStatusCode()))
-              .expectHeaders(response.getHeaders())
-              .expectCookies(response.getCookies())
+          bulidBodySpec(responseSpecBuilder, apiResponse.getBody(), "")
+              .expectStatusCode(Integer.parseInt(apiResponse.getStatusCode()))
+              .expectHeaders(apiResponse.getHeaders())
+              .expectCookies(apiResponse.getCookies())
               .build();
 
       given().filter((requestSpec, responseSpec, ctx) -> {
-        io.restassured.response.Response newResponse = new ResponseBuilder()
+        Response newResponse = new ResponseBuilder()
             .clone(ctx.next(requestSpec, responseSpec)).setContentType(ContentType.JSON)
             .build();
         return newResponse;
       }).spec(requestSpecification).
 
-      when().log().all()
+          when().log().all()
           .post().
-      then().log().all()
+          then().log().all()
           .spec(responseSpecification);
     }
     callBack.runTestMethod(testResult);
-    System.out.println("---------- leave hooker ----------");
+    logger.debug("---------- leave hooker ----------");
   }
 
 

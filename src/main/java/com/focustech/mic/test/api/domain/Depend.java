@@ -1,22 +1,22 @@
 package com.focustech.mic.test.api.domain;
 
 public class Depend {
-  private Request request;
-  private Response response;
+  private ApiRequest apiRequest;
+  private ApiResponse apiResponse;
 
-  public Request getRequest() {
-    return request;
+  public ApiRequest getApiRequest() {
+    return apiRequest;
   }
 
-  public void setRequest(Request request) {
-    this.request = request;
+  public void setApiRequest(ApiRequest apiRequest) {
+    this.apiRequest = apiRequest;
   }
 
-  public Response getResponse() {
-    return response;
+  public ApiResponse getApiResponse() {
+    return apiResponse;
   }
 
-  public void setResponse(Response response) {
-    this.response = response;
+  public void setApiResponse(ApiResponse apiResponse) {
+    this.apiResponse = apiResponse;
   }
 }

@@ -1,7 +1,10 @@
 package com.focustech.mic.test.api.testcase.app;
 
-import com.focustech.mic.test.api.annotation.DataFile;
+import com.focustech.mic.test.api.annotation.ExpectData;
+import com.focustech.mic.test.api.annotation.PrepareData;
+import com.focustech.mic.test.api.annotation.TestFile;
 import org.testng.annotations.Test;
+import org.unitils.dbunit.annotation.DataSet;
 
 /**
  * Created by caiwen on 2017/8/1.
@@ -9,7 +12,10 @@ import org.testng.annotations.Test;
 public class RegisterTest {
 
   @Test(groups = {"core"})
-  @DataFile("testcases/register/register_success.json")
+  @PrepareData(xlsFile = "test.xls", datasource = "cb")
+  @PrepareData(xlsFile = "cboss.xls", datasource = "cboss")
+  @ExpectData(xlsFile = "cboss.xls", datasource = "cboss")
+  @ExpectData(xlsFile = "cb.xls", datasource = "cb")
   public void register_success() {
 
   }

@@ -2,42 +2,42 @@
   {
     "title": "获取登录用户的信息",
     "depend": {
-      "request": {
+      "apiRequest": {
         "path": "/ssl/mic/login",
         "method": "post",
+        "headers": {},
+        "cookies": {},
         "params": {
           "loginId": "lhpb",
           "password": "focus1234",
           "region": "MIC for Supplier Android",
           "versionCode": ""
-        },
-        "headers": {},
-        "cookies": {}
+        }
       }
     },
-    "request": {
+    "apiRequest": {
       "path": "/ssl/openapi_mic/profile",
       "method": "post",
+      "headers": {},
+      "cookies": {},
       "params": {
-        "sessionId": "${depend.response.cookies[JSESSIONID]}",
-        "companyId": "${depend.response.body.content.companyInfo.companyId}",
-        "operatorId": "${depend.response.body.content.userInfo.operatorId}",
+        "sessionId": "${depend.apiResponse.cookies[JSESSIONID]}",
+        "companyId": "${depend.apiResponse.body.content.companyInfo.companyId}",
+        "operatorId": "${depend.apiResponse.body.content.userInfo.operatorId}",
         "mailId": "",
         "mailType":"",
-        "versionCode":"${depend.request.params.versionCode}"
-      },
-      "headers": {},
-      "cookies": {}
+        "versionCode":"${depend.apiRequest.params.versionCode}"
+      }
     },
-    "response": {
+    "apiResponse": {
       "statusCode": 200,
       "headers": {},
       "cookies": {},
       "body": {
         "code": 0,
-        "content": "${depend.response.body.content}",
+        "content": "${depend.apiResponse.body.content}",
         "err": "",
-        "sessionid":"${depend.response.cookies[JSESSIONID]}"
+        "sessionid":"${depend.apiResponse.cookies[JSESSIONID]}"
       }
     }
   }

@@ -1,18 +1,18 @@
 package com.focustech.mic.test.api.testcase.app;
 
-import com.focustech.mic.test.api.annotation.DataFile;
+import com.focustech.mic.test.api.annotation.ExpectData;
+import com.focustech.mic.test.api.annotation.PrepareData;
+import com.focustech.mic.test.api.annotation.TestFile;
 
-import org.testng.ITestContext;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class LoginTest {
 
   @Test(groups = {"core", "login"})
-  @DataFile("testcases/login/loginTest.json")
-  public void login_success() {
-
-  }
-
+  @TestFile("testcases/login/loginTest.json")
+  @PrepareData(xlsFile = "prepare1.xls",datasource = "cbDataSource")
+  @PrepareData(xlsFile = "prepare2.xls",datasource = "cbossDataSource")
+  @ExpectData(xlsFile = "expect.xls",datasource = "cbDataSource")
+  public void login_success() {}
 
 }

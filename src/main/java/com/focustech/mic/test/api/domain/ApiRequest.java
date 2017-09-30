@@ -2,7 +2,7 @@ package com.focustech.mic.test.api.domain;
 
 import java.util.Map;
 
-public class Request {
+public class ApiRequest {
 
   private String path;
   private String method;

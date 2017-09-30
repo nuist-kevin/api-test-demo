@@ -1,0 +1,14 @@
+{
+  "apiRequest": {
+    "path": "/ssl/mic/login",
+    "method": "post",
+    "headers": {},
+    "cookies": {},
+    "params": {
+      "loginId": "lhpb",
+      "password": "focus1234",
+      "region": "MIC for Supplier Android",
+      "versionCode": ""
+    }
+  }
+}

@@ -4,8 +4,8 @@ public class TestCase {
 
   private String title;
   private Depend depend;
-  private Request request;
-  private Response response;
+  private ApiRequest apiRequest;
+  private ApiResponse apiResponse;
 
   public String getTitle() {
     return title;
@@ -15,20 +15,20 @@ public class TestCase {
     this.title = title;
   }
 
-  public Request getRequest() {
-    return request;
+  public ApiRequest getApiRequest() {
+    return apiRequest;
   }
 
-  public void setRequest(Request request) {
-    this.request = request;
+  public void setApiRequest(ApiRequest apiRequest) {
+    this.apiRequest = apiRequest;
   }
 
-  public Response getResponse() {
-    return response;
+  public ApiResponse getApiResponse() {
+    return apiResponse;
   }
 
-  public void setResponse(Response response) {
-    this.response = response;
+  public void setApiResponse(ApiResponse apiResponse) {
+    this.apiResponse = apiResponse;
   }
 
   public Depend getDepend() {

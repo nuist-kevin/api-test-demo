@@ -1,0 +1,27 @@
+[
+  {
+    "title": "正常登录",
+    "apiRequest": {
+      "path": "/logon",
+      "method": "post",
+      "params": {
+        "logonUserName": "caiwen@devtest.com",
+        "logonPassword": "focus1234"
+      },
+      "headers": {},
+      "cookies": {
+        "lun": "caiwen@devtest.com"
+      }
+    },
+    "apiResponse": {
+      "statusCode": 302,
+      "headers": {
+        "Location" : "http://www.channel-fy.com/uc/user/home"
+      },
+      "cookies": {
+        "lc" : "zh"
+      },
+      "body": {}
+    }
+  }
+]

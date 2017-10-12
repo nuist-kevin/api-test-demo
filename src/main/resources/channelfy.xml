@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="channelfy">
+  <listeners>
+    <listener class-name="com.focustech.mic.test.api.listener.CustomHooker"/>
+    <listener class-name="com.focustech.mic.test.api.listener.CustomTestListener"/>
+    <!--<listener class-name="com.focustech.mic.test.api.listener.CustomSuitListener"/>-->
+    <!--<listener class-name="com.focustech.mic.test.api.listener.DbVerifyListener"/>-->
+  </listeners>
+
+  <test name="login">
+    <parameter name="baseURI" value="http://passport.channel-fy.com"/>
+    <!--<parameter name="contentType" value="application/x-www-form-urlencoded; charset=ISO-8859-1"/>-->
+    <classes>
+      <class name="com.focustech.mic.test.api.testcase.channelfy.LoginTest"/>
+    </classes>
+  </test>
+
+  <test name="demo">
+    <parameter name="baseURI" value="http://www.channel-fy.com"/>
+    <!--<parameter name="contentType" value="application/x-www-form-urlencoded; charset=ISO-8859-1"/>-->
+    <parameter name="needLogin" value="true"/>
+    <parameter name="loginUrl" value="http://passport.channel-fy.com/logon"/>
+    <parameter name="loginParams" value="logonUserName,logonPassword"/>
+    <parameter name="loginParamsValue" value="caiwen@devtest.com,focus1234"/>
+    <parameter name="loginCookies" value="lui,lun,sit,ltat,JSESSIONID"/>
+    <classes>
+      <class name="com.focustech.mic.test.api.testcase.channelfy.DemoTest"/>
+    </classes>
+  </test>
+
+
+</suite>

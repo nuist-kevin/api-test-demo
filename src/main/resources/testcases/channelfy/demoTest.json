@@ -1,0 +1,54 @@
+[
+  {
+    "title": "设置备货信息",
+    "apiRequest": {
+      "path": "/uc/inventory/stocking/set",
+      "method": "post",
+      "params": {
+        "stockManagementIds": "13361",
+        "averageStockingCycle": 50,
+        "expectedSaleableDays": 30,
+        "safetyStock": 20
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "apiResponse": {
+      "statusCode": 200,
+      "headers": {},
+      "cookies": {},
+      "body": {
+        "status": "1",
+        "msg": "",
+        "data": null,
+        "success": true
+      }
+    }
+  },
+  {
+    "title": "批量设置备货信息",
+    "apiRequest": {
+      "path": "/uc/inventory/stocking/set",
+      "method": "post",
+      "params": {
+        "stockManagementIds": "11091,11101",
+        "averageStockingCycle": 50,
+        "expectedSaleableDays": 30,
+        "safetyStock": 20
+      },
+      "headers": {},
+      "cookies": {}
+    },
+    "apiResponse": {
+      "statusCode": 200,
+      "headers": {},
+      "cookies": {},
+      "body": {
+        "status": "1",
+        "msg": "",
+        "data": null,
+        "success": true
+      }
+    }
+  }
+]

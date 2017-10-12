@@ -37,7 +37,7 @@ public class DbVerifyListener implements IInvokedMethodListener2 {
   @Override
   public void beforeInvocation(IInvokedMethod method, ITestResult testResult,
       ITestContext context) {
-    logger.debug("Preparing data for test method {}.", method.getTestMethod().getMethodName());
+    logger.debug("Preparing data for test method 【{}】.", method.getTestMethod().getMethodName());
     PrepareData[] prepareDatas = method.getTestMethod().getConstructorOrMethod().getMethod()
         .getAnnotationsByType(PrepareData.class);
     CompositeOperation dbOperation = new CompositeOperation(DELETE, INSERT);
